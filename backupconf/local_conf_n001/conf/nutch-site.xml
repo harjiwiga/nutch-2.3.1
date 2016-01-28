@@ -1,0 +1,356 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+<property>
+    <name>http.agent.name</name>
+    <value>Nutch-Test</value> <!-- this can be changed to something more sane if you like -->
+  </property>
+<!--
+    <property>
+  	<name>plugin.folders</name>
+  	<value>/usr/local/nutch-2.x/build/plugins</value>
+  </property>
+-->
+  <property>
+        <name>plugin.folders</name>
+        <value>runtime/local/plugins</value>
+  </property>
+
+  <property>
+    <name>http.robots.agents</name>
+    <value>MyBot,*</value> <!-- this is the robot name we're looking for in robots.txt files -->
+  </property>
+  <property>
+	<name>storage.data.store.class</name>
+	<value>org.apache.gora.hbase.store.HBaseStore</value>
+	<description>Default class for storing data</description>
+ </property>
+ <property>
+	<name>db.update.additions.allowed</name>
+	<value>true</value>
+	<description>If true, updatedb will add newly discovered URLs, if false
+	only already existing URLs in the CrawlDb will be updated and no new
+  	URLs will be added.
+  	</description>
+ </property> 
+ <property>
+    <name>searcher.dir</name>
+    <value>/usr/local/nutch-2.x/urls</value>
+  </property> 
+  
+ <property>
+	<name>io.serializations</name>
+	<value>org.apache.hadoop.io.serializer.WritableSerialization,org.apache.hadoop.io.serializer.JavaSerialization</value>
+	<description>A list of serialization classes that can be used for
+  	obtaining serializers and deserializers.</description>
+</property>
+  
+<property>
+ 	<name>fetcher.store.content</name>
+ 	<value>true</value>
+ 	<description>If true, fetcher will store content. Helpful on the getting-started stage, as you can recover failed steps, but may cause performance problems on larger crawls.</description>
+</property>
+    
+<property>
+	 <name>plugin.includes</name>
+	 <value>protocol-http|urlfilter-regex|parse-(html|tika|metatags)|index-(basic|anchor|metadata)|query-(basic|site|url)|response-(json|xml)|summary-basic|scoring-opic|indexer-solr|urlnormalizer-(pass|regex|basic)</value>
+	<description> At the very least, I needed to add the parse-html, urlfilter-regex, and the indexer-solr.
+	</description>
+</property>
+   
+<property>
+  <name>http.robots.403.allow</name>
+  <value>true</value>
+  <description>Some servers return HTTP status 403 (Forbidden) if
+  /robots.txt doesn't exist. This should probably mean that we are
+  allowed to crawl the site nonetheless. If this is set to false,
+  then such sites will be treated as forbidden.</description>
+</property>
+
+  <property>
+  	<name>http.agent.url</name>
+  	<value>https://www.tokopedia.com/</value>
+  	<description>A URL to advertise in the User-Agent header. This will
+  		appear in parenthesis after the agent name. Custom dictates that this
+  		should be a URL of a page explaining the purpose and behavior of this
+  		crawler.
+  	</description>
+  </property>
+  
+<property> 
+  <name>http.content.limit</name> 
+  <value>-1</value> 
+</property> 
+
+<property> 
+  <name>http.timeout</name> 
+  <value>2147483647</value> 
+  <description>
+	The default network timeout, in milliseconds. 15000=15s
+  </description>  
+</property>
+  
+<property>
+  <name>http.max.delays</name>
+  <value>100</value>
+  <description>The number of times a thread will delay when trying to
+  fetch a page.  Each time it finds that a host is busy, it will wait
+  fetcher.server.delay.  After http.max.delays attepts, it will give
+  up on the page for now.</description>
+</property>
+  
+<property> 
+  <name>db.max.outlinks.per.page</name> 
+  <value>999999999</value>
+  <description>All outgoing links are processed.</description>
+</property> 
+  
+<property>
+<name>metatags.names</name>
+<value>description,keywords</value>
+<description> Names of the metatags to extract, separated by ','.
+  Use '*' to extract all metatags. Prefixes the names with 'metatag.'
+  in the parse-metadata. For instance to index description and keywords,
+  you need to activate the plugin index-metadata and set the value of the
+  parameter 'index.parse.md' to 'metatag.description,metatag.keywords'.
+</description>
+</property>
+  
+<property>
+  <name>index.parse.md</name>
+  <value>metatag.description,metatag.keywords</value>
+  <description>
+  Comma-separated list of keys to be taken from the parse metadata to generate fields.
+  Can be used e.g. for 'description' or 'keywords' provided that these values are generated
+  by a parser (see parse-metatags plugin)
+  </description>
+</property>
+
+<property>
+  <name>index.metadata</name>
+  <value>description,keywords</value>
+  <description>
+  Comma-separated list of keys to be taken from the metadata to generate fields.
+  Can be used e.g. for 'description' or 'keywords' provided that these values are generated
+  by a parser (see parse-metatags plugin), and property 'metatags.names'.
+  </description>
+</property>
+  
+<!--  property>
+  <name>fetcher.queue.mode</name>
+  <value>byDomain</value>
+</property>
+-->
+
+<property>
+  <name>db.update.purge.404</name>
+  <value>true</value>
+  <description>If true, updatedb will add purge records with status DB_GONE
+  from the CrawlDB.
+  </description>
+</property>
+      
+<property>
+  <name>fetcher.parse</name>
+  <value>true</value>
+  <description>If true, fetcher will parse content. Default is false, which means
+  that a separate parsing step is required after fetching is finished.</description>
+</property>
+
+<property>
+  <name>generate.max.count</name>
+  <value>-1</value>
+  <description>The maximum number of urls in a single
+  fetchlist.  -1 if unlimited. The urls are counted according
+  to the value of the parameter generator.count.mode.
+  </description>
+</property>
+      
+<property> 
+    <name>generate.max.per.host</name> 
+    <value>-1</value> 
+</property> 
+  
+<property>
+  <name>db.ignore.internal.links</name>
+  <value>true</value>
+  <description>If true, when adding new links to a page, links from
+  the same host are ignored.  This is an effective way to limit the
+  size of the link database, keeping only the highest quality
+  links.
+  </description>
+</property>
+
+<property>
+  <name>db.ignore.external.links</name>
+  <value>true</value>
+  <description>If true, outlinks leading from a page to external hosts
+  will be ignored. This is an effective way to limit the crawl to include
+  only initially injected hosts, without creating complex URLFilters.
+  </description>
+</property>
+
+<property>
+  <name>fetcher.server.min.delay</name>
+  <value>2</value>
+  <description>applicable ONLY if fetcher.threads.per.host is greater than 1 (i.e. the host blocking is turned off).</description>
+</property>
+  
+<property>
+	 <name>fetcher.max.crawl.delay</name>
+	 <value>5</value>
+	 <description>
+	 If the Crawl-Delay in robots.txt is set to greater than this value (in
+	 seconds) then the fetcher will skip this page, generating an error report. If set to -1 the fetcher will never skip such pages and will wait the amount of time retrieved from robots.txt Crawl-Delay, however long that might be.
+	 </description>
+</property>
+
+<property>
+<name>fetcher.threads.per.queue</name>
+   <value>200</value>
+   <description></description>
+</property>
+
+<property>
+  <name>fetcher.threads.fetch</name>
+  <value>200</value>
+</property>
+
+<property>
+<name>fetcher.threads.per.host</name>
+   <value>14</value>
+   <description></description>
+</property> 
+
+<property>
+  <name>fetcher.server.delay</name>
+  <value>2</value>
+ <description>The number of seconds the fetcher will delay between 
+   successive requests to the same server. Note that this might get
+   overriden by a Crawl-Delay from a robots.txt and is used ONLY if 
+   fetcher.threads.per.queue is set to 1.
+ </description>
+</property>
+  
+ <property>
+   <name>fetcher.threads.per.host.by.ip</name>
+   <value>false</value>
+   <description>If true, then fetcher will count threads by IP address,
+	  to which the URL's host name resolves. If false, only host name will be
+	  used. NOTE: this should be set to the same value as
+	  "generate.max.per.host.by.ip" - default settings are different only for
+	  reasons of backward-compatibility.</description>
+</property>
+  
+<property>
+  <name>http.useHttp11</name>
+  <value>true</value>
+  <description>
+  NOTE: at the moment this works only for protocol-httpclient. If true, use HTTP 1.1, if false use HTTP 1.0
+  </description>
+</property>
+
+<property>
+  <name>db.max.inlinks</name>
+  <value>655360</value>
+  <description>
+  Maximum number of Inlinks per URL to be kept in LinkDb. If "invertlinks" finds more inlinks than this number, only the first N inlinks will be stored, and the rest will be discarded.
+  </description>
+</property>
+
+<property>
+  <name>db.fetch.retry.max</name>
+  <value>16</value>
+  <description>
+  The maximum number of times a url that has encountered recoverable errors is generated for fetch.
+  </description>
+</property>
+  
+<property>
+    <name>fetcher.max.exceptions.per.queue</name>
+    <value>-1</value>
+    <description>The maximum number of protocol-level exceptions (e.g. timeouts) per
+    host (or IP) queue. Once this value is reached, any remaining entries from this
+    queue are purged, effectively stopping the fetching from this host/IP. The default
+    value of -1 deactivates this limit.
+    </description>
+</property>  
+
+<property>
+    <name>search.response.default.numrows</name>
+    <value>50</value>
+    <description>
+  The default number of rows to return if none is specified.
+  </description>
+  </property>
+  <property>
+    <name>searcher.filter.cache.size</name>
+    <value>32</value>
+    <description>
+  Maximum number of filters to cache.  Filters can accelerate certain
+  field-based queries, like language, document format, etc.  Each
+  filter requires one bit of RAM per page.  So, with a 10 million page
+  index, a cache size of 16 consumes two bytes per page, or 20MB.
+  </description>
+  </property>
+  
+<property>
+  <name>db.fetch.interval.default</name>
+  <value>86400</value>
+  <description>The default number of seconds between re-fetches of a page (30 days).
+  </description>
+</property>
+  
+<property>
+  <name>db.fetch.interval.max</name>
+  <value>86400</value>
+  <description>The maximum number of seconds between re-fetches of a page
+  (90 days). After this period every page in the db will be re-tried, no
+  matter what is its status.
+  </description>
+
+</property>
+  
+<property>
+  <name>fetcher.verbose</name>
+  <value>true</value>
+</property>
+  
+<property>
+    <name>http.redirect.max</name>
+    <value>0</value>
+    <description>The maximum number of redirects the fetcher will follow when
+  trying to fetch a page. If set to negative or 0, fetcher won't immediately
+  follow redirected URLs, instead it will record them for later fetching.
+  </description>
+  </property>
+
+<property>
+  <name>fetcher.queue.depth.multiplier</name>
+  <value>200</value>
+  <description>(EXPERT)The fetcher buffers the incoming URLs into queues based on the [host|domain|IP]
+  (see param fetcher.queue.mode). The depth of the queue is the number of threads times the value of this parameter.
+  A large value requires more memory but can improve the performance of the fetch when the order of the URLS in the fetch list
+  is not optimal.
+  </description>
+</property>
+    
+<property>
+  <name>cloudsearch.region</name>
+  <value>ap-southeast-1</value>
+</property>
+
+<property>
+  <name>cloudsearch.endpoint</name>
+ <value>ec2.ap-southeast-1.amazonaws.com</value>
+</property>
+
+<property>
+  <name>cloudsearch.batch.maxSize</name>
+  <value>100</value>
+</property>
+	
+</configuration>

@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<!--
+/**
+ *
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+<configuration>
+
+	<property>
+		<name>hbase.master</name>
+		<value>hbase-master:60000</value>
+		<description>The host and port that the HBase master runs at.
+							 A value of 'local' runs the master and a regionserver
+							 in a single process.
+		</description>
+	</property>
+
+	<property>
+		<name>hbase.rootdir</name>		
+		<value>file:///d:/hbase</value>
+		<description>The directory shared by region servers.</description>
+	</property>
+
+	<property>
+		<name>hbase.cluster.distributed</name>
+		<value>true</value>
+		<description>The mode the cluster will be in. Possible values are
+		false: standalone and pseudo-distributed setups with managed
+		Zookeeper true: fully-distributed with unmanaged Zookeeper
+		Quorum (see hbase-env.sh)
+		</description>
+	</property>
+	
+	<property>
+		<name>hbase.zookeeper.property.clientPort</name>
+		<value>2181</value>
+		<description>Property from ZooKeeper's config zoo.cfg.
+		The port at which the clients will connect.
+		</description>
+	</property>
+
+	<property>
+        <name>hbase.zookeeper.property.maxClientCnxns</name>
+        <value>1000</value>
+	</property>
+ 
+	<property>
+		<name>hbase.zookeeper.quorum</name>
+		<value>DESIGNSTREAM-02</value>
+		<description>Comma separated list of servers in the ZooKeeper Quorum.
+							 For example,
+							 "host1.mydomain.com,host2.mydomain.com".
+							 By default this is set to localhost for local and
+							 pseudo-distributed modes of operation. For a
+							 fully-distributed setup, this should be set to a full
+							 list of ZooKeeper quorum servers. If
+							 HBASE_MANAGES_ZK is set in hbase-env.sh
+							 this is the list of servers which we will start/stop
+							 ZooKeeper on.
+		</description>
+	</property>
+	
+	<property>
+		<name>hbase.zookeeper.property.dataDir</name>
+		<value>file:///d:/export/zookeeper</value>
+		<description>Property from ZooKeeper's config zoo.cfg.
+		The directory where the snapshot is stored.
+		</description>
+  </property>
+	<property>
+	  <name>dfs.support.append</name>
+	  <value>true</value>
+	</property>
+  
+	<property>
+		<name>zookeeper.session.timeout</name>
+		<value>1200000</value>
+	</property>
+	<property>
+		<name>hbase.zookeeper.property.tickTime</name>
+		<value>6000</value>
+	</property>  
+	
+	<property>
+		<name>hbase.master.maxclockskew</name>
+		<value>30000</value>
+	</property>
+  
+	<property>
+         <name>dfs.replication</name>
+         <value>1</value>
+    </property> 
+     
+	<property>
+        <name>zookeeper.znode.parent</name>
+        <value>/hbase</value>
+    </property>
+  
+	<property>
+	  <name>hbase.hregion.memstore.mslab.enabled</name>
+	  <value>true</value>
+	</property> 
+ 
+ <!-- default is 256MB 268435456, this is 1.5GB -->
+  <property>
+    <name>hbase.hregion.max.filesize</name>
+    <value>1610612736</value>
+  </property>
+  
+  <!-- default is 2 -->
+  <property>
+    <name>hbase.hregion.memstore.block.multiplier</name>
+    <value>4</value>
+  </property>
+  
+  <!-- default is 64MB 67108864 -->
+  <property>
+    <name>hbase.hregion.memstore.flush.size</name>
+    <value>134217728</value>
+  </property>
+  
+  <!-- default is 7, should be at least 2x compactionThreshold -->
+  <property>
+    <name>hbase.hstore.blockingStoreFiles</name>
+    <value>200</value>
+  </property>
+ 
+ <property>
+    <name>hbase.regionserver.lease.period</name>
+    <value>900000</value> <!-- 900 000, 15 minutes -->
+  </property>
+  <property>
+    <name>hbase.rpc.timeout</name>
+    <value>900000</value> <!-- 15 minutes -->
+  </property>
+  
+</configuration>

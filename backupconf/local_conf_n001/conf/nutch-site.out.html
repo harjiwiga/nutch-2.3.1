@@ -1,0 +1,53 @@
+namevaluedescriptionhttp.agent.nameNutch-Testplugin.foldersD:/wksgit/nutch-2.x/build/pluginshttp.robots.agentsMyBot,*storage.data.store.classorg.apache.gora.hbase.store.HBaseStoreDefault class for storing datadb.update.additions.allowedtrueIf true, updatedb will add newly discovered URLs, if false
+	only already existing URLs in the CrawlDb will be updated and no new
+  	URLs will be added.
+  	searcher.dirD:/wksgit/nutch-2.x/urlsio.serializationsorg.apache.hadoop.io.serializer.WritableSerialization
+		A list of serialization classes that can be used for
+  	obtaining serializers and deserializers.fetcher.store.contenttrueIf true, fetcher will store content. Helpful on the getting-started stage, as you can recover failed steps, but may cause performance problems on larger crawls.plugin.includesprotocol-http|urlfilter-regex|parse-(html|tika|metatags)|index-(basic|anchor|metadata)|query-(basic|site|url)|response-(json|xml)|summary-basic|scoring-opic|indexer-solr|urlnormalizer-(pass|regex|basic) At the very least, I needed to add the parse-html, urlfilter-regex, and the indexer-solr.
+	http.robots.403.allowtrueSome servers return HTTP status 403 (Forbidden) if
+  /robots.txt doesn't exist. This should probably mean that we are
+  allowed to crawl the site nonetheless. If this is set to false,
+  then such sites will be treated as forbidden.http.agent.urlhttps://www.tokopedia.com/A URL to advertise in the User-Agent header. This will
+  		appear in parenthesis after the agent name. Custom dictates that this
+  		should be a URL of a page explaining the purpose and behavior of this
+  		crawler.
+  	http.content.limit999999999http.timeout2147483647http.max.delays2147483647The number of times a thread will delay when trying to
+  fetch a page.  Each time it finds that a host is busy, it will wait
+  fetcher.server.delay.  After http.max.delays attepts, it will give
+  up on the page for now.db.max.outlinks.per.page999999999metatags.namesdescription,keywords Names of the metatags to extract, separated by ','.
+  Use '*' to extract all metatags. Prefixes the names with 'metatag.'
+  in the parse-metadata. For instance to index description and keywords,
+  you need to activate the plugin index-metadata and set the value of the
+  parameter 'index.parse.md' to 'metatag.description,metatag.keywords'.
+index.parse.mdmetatag.description,metatag.keywords
+  Comma-separated list of keys to be taken from the parse metadata to generate fields.
+  Can be used e.g. for 'description' or 'keywords' provided that these values are generated
+  by a parser (see parse-metatags plugin)
+  index.metadatadescription,keywords
+  Comma-separated list of keys to be taken from the metadata to generate fields.
+  Can be used e.g. for 'description' or 'keywords' provided that these values are generated
+  by a parser (see parse-metatags plugin), and property 'metatags.names'.
+  db.update.purge.404trueIf true, updatedb will add purge records with status DB_GONE
+  from the CrawlDB.
+  db.fetch.interval.max3600The maximum number of seconds between re-fetches of a page
+  (90 days). After this period every page in the db will be re-tried, no
+  matter what is its status.
+  fetcher.parsetrueIf true, fetcher will parse content. Default is false, which means
+  that a separate parsing step is required after fetching is finished.generate.max.count-1The maximum number of urls in a single
+  fetchlist.  -1 if unlimited. The urls are counted according
+  to the value of the parameter generator.count.mode.
+  generate.max.per.host-1db.ignore.internal.linkstrueIf true, when adding new links to a page, links from
+  the same host are ignored.  This is an effective way to limit the
+  size of the link database, keeping only the highest quality
+  links.
+  db.ignore.external.linkstrueIf true, outlinks leading from a page to external hosts
+  will be ignored. This is an effective way to limit the crawl to include
+  only initially injected hosts, without creating complex URLFilters.
+  fetcher.server.min.delay5applicable ONLY if fetcher.threads.per.host is greater than 1 (i.e. the host blocking is turned off).fetcher.max.crawl.delay10
+	 If the Crawl-Delay in robots.txt is set to greater than this value (in
+	 seconds) then the fetcher will skip this page, generating an error report. If set to -1 the fetcher will never skip such pages and will wait the amount of time retrieved from robots.txt Crawl-Delay, however long that might be.
+	 fetcher.threads.per.queue200fetcher.threads.fetch200fetcher.threads.per.host10fetcher.server.delay2The number of seconds the fetcher will delay between 
+   successive requests to the same server. Note that this might get
+   overriden by a Crawl-Delay from a robots.txt and is used ONLY if 
+   fetcher.threads.per.queue is set to 1.
+ 
